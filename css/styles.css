@@ -1,23 +1,24 @@
-/* ==== GENERAl STYLES ==== */
-/* ======================== */
-
-@font-face {
-    font-family: 'Avenir-Light';
-    src: url('../fonts/Avenir\ Light.ttf') format('truetype');
-}
 @font-face {
     font-family: 'Avenir-Regular';
-    src: url('../fonts/Avenir\ Regular.ttf') format('truetype');
+    src: url('../fonts/Avenir-Regular.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'Avenir-Medium';
-    src: url('../fonts/Avenir\ Medium.ttf') format('truetype');
+    font-family: 'Pacifico-Regular';
+    src: url('../fonts/Pacifico-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Neuton-Bold';
+    src: url('../fonts/Neuton-Bold.ttf');
 }
 html{
     font-family: 'Avenir-Regular';
+    background: url('../images/background.jpg') 0% 50%/cover no-repeat;
 }
-a{
-    text-decoration: none;
+body{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    place-items: center;
 }
 h1{
     font-size: 1.5rem;
@@ -34,93 +35,169 @@ h4{
 h5{
     font-size: 0.83rem;
 }
-h4{
+h6{
     font-size: 0.67rem;
 }
-body{
-    width: 100%;
-    height: 100vh;
-    background: #007991;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right,#007991, #78ffd6);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right,#007991, #78ffd6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+a{
+    text-decoration: none;
+}
+
+/* ==== MOVE-COUNTER ==== */
+/* ====================== */
+
+.move-counter{
+    top: 1rem;
+    left: 1rem;
+    position: fixed;
+    z-index: 1;
+    color: purple;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+}
+.move-counter h3{
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+.move-counter h2{
+    font-size: 2rem;
+}
+
+/* ==== SQUARE ==== */
+/* ================ */
+
+.square-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem 1rem;
+}
+.square-container .square{
+    background: url('../images/ice-cube.png') 0 50%/cover;
+    color: purple;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 0 8px 1px #80008080;
+    border-radius: 10px;
     display: grid;
     place-items: center;
-}
-
-.alert{
-    transition: all 0.5s;
-    top: 0;
-    transform: translateY(-100%);
-    position: fixed;
-    background-color: red;
-    color: white;
-    text-align: center;
-    padding: 1.5rem 3rem;
-}
-.alert.show{
-    transform: translateY(0);
-}
-
-section{
-    width: 90%;
-    margin: 0 auto;
-}
-section form{
-    width: 100%;
-    display: flex;
-    gap: 0 0;
-    margin-bottom: 0.5rem;
-}
-section form input{
-    padding: 0.5rem 1.5rem;
-    width: 100%;
-    height: 2rem;
-    border: 0;
-    outline: 0;
-}
-section form input::placeholder{
-    font-family: 'Avenir-Regular';
-    letter-spacing: 1px;
-}
-section form input:focus{
-    font-family: 'Avenir-Regular';
-    border: 0;
-    outline: 0;
-}
-section form button{
-    border: 0;
-    letter-spacing: 2px;
-    padding: 0 1.5rem;
-    font-family: 'Avenir-Regular';
-    text-transform: capitalize;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-section form button:hover{
-    background-color: rgb(80, 80, 224);
-    color: white;
-}
-section ul.items li{
     background-color: white;
-    text-transform: capitalize;
-    padding: 0.75rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 10rem;
+    height: 10rem;
     transition: all 0.5s;
-    margin-bottom: 0.5rem;
+    font-family: 'Neuton-Bold';
 }
-section ul.items li:hover{
-    box-shadow: 0 0 20px 1px rgb(40, 40, 243);
+.square-container .square.empty{
+    visibility: hidden;
 }
-section ul.items li div{
+
+@media screen and (max-width:840px){
+    .square-container .square{
+        width: 7rem;
+        height: 7rem;
+        transition: all 0.4s;
+    }
+}
+@media screen and (max-width:567px){
+    .square-container .square{
+        width: 6rem;
+        height: 6rem;
+    }
+}
+@media screen and (max-width:480px){
+    .square-container .square{
+        width: 5rem;
+        height: 5rem;
+    }
+}
+
+/* ==== ALERT-WINNER ==== */
+/* ====================== */
+
+.alert-winner{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #000000b3;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    transform: scale(0);
+    transition: all 0.5s;
+}
+.alert-winner.show{
+    transform: scale(1);
+}
+.alert-winner .message-text{
+    width: 70%;
+    background-color: white;
+    padding: 4rem 0;
+}
+.alert-winner .message-text section div{
+    width: 400px;
+    margin: 0 auto;
     align-items: center;
-    gap: 0 0.75rem;
+    justify-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1rem;
+    border-radius: 10px;
+}
+.alert-winner .message-text section div p{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: 'Pacifico-Regular';
+    font-size: 1.5rem;
+}
+.alert-winner .message-text section div ul{
     display: flex;
+    gap: 0.25rem 0.25rem;
 }
-section ul.items li div a.edit-btn{
-    color: rgb(8, 154, 8);
+.alert-winner .message-text section div ul li{
+    color: #e6e60d;
+    font-size: 1.5rem;
 }
-section ul.items li div a.remove-btn{
-    color: red;
+.alert-winner .message-text section div ul li.minimize-animation{
+    animation-name: minimize;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+}
+.alert-winner .message-text section div ul li.real-size{
+    transform: scale(1);
+}
+
+@keyframes minimize {
+    0%{
+        transform: scale(5);
+    }
+    25%{
+        transform: scale(4);
+    }
+    50%{
+        transform: scale(3);
+    }
+    75%{
+        transform: scale(2);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+@media screen and (max-width:768px){
+    .alert-winner .message-text{
+        width: 85%;
+    }
+}
+@media screen and (max-width:567px){
+    .alert-winner .message-text{
+        width: 95%;
+    }
+    .alert-winner .message-text section div{
+        width: 300px;
+        grid-template-columns: 1fr;
+    }
 }
